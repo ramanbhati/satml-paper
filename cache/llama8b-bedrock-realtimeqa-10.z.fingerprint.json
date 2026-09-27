@@ -1,0 +1,6 @@
+{
+  "bedrock_id": "us.meta.llama3-1-8b-instruct-v1:0",
+  "max_output_tokens": 20,
+  "system_prompt": null,
+  "temperature": 0
+}

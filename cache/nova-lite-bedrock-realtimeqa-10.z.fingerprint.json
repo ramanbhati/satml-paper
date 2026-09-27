@@ -1,0 +1,6 @@
+{
+  "bedrock_id": "us.amazon.nova-lite-v1:0",
+  "max_output_tokens": 20,
+  "system_prompt": "Follow the template and continue after 'Answer:'. Output ONLY the direct answer, as concisely as possible (a few words or short keywords), matching the style of the examples. Do NOT add any preamble, explanation, source, apology, or meta commentary.",
+  "temperature": 0
+}

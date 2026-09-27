@@ -1,0 +1,38 @@
+# Dependencies. Only needed to RUN experiments; reproducing the paper's tables
+# and figures from the released result files needs nothing beyond the standard
+# library (see ARTIFACT.md).
+#
+# The version after each '#' is the pin upstream recorded, kept for reference.
+# Upstream wrote these as 'accelerate#==0.23.0', with no space before the '#'.
+# pip does not read that as an inline comment: it parses the whole token as a
+# requirement name and fails on the first line with
+#     Invalid requirement: 'accelerate#==0.23.0'
+# so 'pip install -r requirements.txt' could not install anything at all. A
+# space before the '#' makes each one a valid inline comment, which is what was
+# meant, and leaves the recorded versions intact.
+accelerate  # ==0.23.0
+litellm  # ==1.35.1
+nltk  # ==3.8.1
+numpy  # ==1.26.0
+openai  # ==1.13.3
+scikit-learn  # ==1.4.0
+spacy  # ==3.7.4
+torch  # ==2.2.1
+tqdm  # ==4.66.1
+transformers==4.44.2   # bumped from 4.40.1: parses Llama-3.2 rope_scaling AND still exports generation.utils._crop_past_key_values (removed in >=4.45, needed by decoding defense). Do not upgrade past 4.44.x.
+joblib  # ==1.3.2
+# local Apple-Silicon / Bedrock additions:
+sentencepiece   # Mistral v0.3 tokenizer
+protobuf        # Mistral v0.3 tokenizer
+boto3           # litellm -> Amazon Bedrock
+tenacity        # required by litellm num_retries (Bedrock throttle backoff)
+# TWO ONE-OFF DOWNLOADS ARE ALSO REQUIRED. Neither is a pip package, so
+# installing this file is not sufficient:
+#
+#     python3 -m spacy download en_core_web_sm
+#     python3 -c "import nltk; nltk.download('stopwords')"
+#
+# src/defense.py needs both AT IMPORT TIME -- line 11 evaluates
+# stopwords.words('english') at module level -- so a missing corpus is an
+# immediate LookupError rather than a failure at first use. Only the spacy one
+# was previously recorded here.
